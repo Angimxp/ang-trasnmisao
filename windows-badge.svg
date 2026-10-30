@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40" width="135" height="40">
+  <rect width="135" height="40" rx="6" fill="#000000" stroke="#a6a6a6" stroke-width="0.8"/>
+  <g transform="translate(14, 10)">
+    <!-- Ícone Windows moderno / Microsoft -->
+    <path fill="#00A4EF" d="M0 0h9v9H0zM10.5 0h9v9h-9zM0 10.5h9v9H0zM10.5 10.5h9v9h-9z"/>
+  </g>
+  <text x="40" y="16" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="8.5" font-weight="500" letter-spacing="0.2">BAIXAR PARA</text>
+  <text x="40" y="28" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.3">Windows</text>
+</svg>
