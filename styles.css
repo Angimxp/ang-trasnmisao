@@ -967,3 +967,68 @@ select:focus{border-color:var(--cyan-line); box-shadow:0 0 0 3px var(--cyan-soft
   object-fit: contain;
   display: block;
 }
+
+/* --- Discord-Style Audio Controls --- */
+.discordAudioControls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.discordAudioBtnWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #111418;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.discordAudioBtnWrap:hover {
+  border-color: rgba(0, 255, 255, 0.4);
+}
+.discordAudioBtn {
+  background: none;
+  border: none;
+  color: #949BA4;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px 0 0 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.discordAudioBtn:hover {
+  color: #F2F3F5;
+  background: rgba(255, 255, 255, 0.05);
+}
+.discordArrowBtn {
+  background: none;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  color: #949BA4;
+  padding: 6px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0 6px 6px 0;
+  transition: color 0.15s, background 0.15s;
+}
+.discordArrowBtn:hover {
+  color: #00FFFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+.discordDropdownMenu {
+  position: absolute;
+  bottom: 44px;
+  left: 0;
+  width: 240px;
+  background: #111418;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.85);
+  z-index: 99999;
+  backdrop-filter: blur(10px);
+}

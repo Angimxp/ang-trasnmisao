@@ -59,7 +59,7 @@
         <span class="downloadAppTitle">BAIXE O APP</span>
         <div class="downloadAppBadges">
           <!-- Windows Desktop (Baixa direto o App .zip) -->
-          <a href="ANG_Transmissao_Desktop.zip" download="ANG_Transmissao_Desktop.zip" class="appBadgeLink" title="Baixar App para PC (Windows)">
+          <a href="ANG_Transmissao_Setup.exe" download="ANG_Transmissao_Setup.exe" class="appBadgeLink" title="Baixar App para PC (Windows)">
             <img src="windows-badge.svg" alt="Baixar para Windows" class="appBadgeImg">
           </a>
           <!-- App Store (iOS) - Aviso de em breve -->
@@ -137,6 +137,57 @@
     </div>
 
     <div class="bottomBarControls">
+
+      <!-- CONTROLES DE ÁUDIO DISCORD STYLE (MIC & FONE) -->
+      <div class="audioControlsGroup" style="display: flex; align-items: center; gap: 4px; margin-right: 8px;">
+        <!-- MIC COM BOTÃO E SETINHA -->
+        <div class="discordAudioBtnWrap" id="micWrap" style="position: relative; display: flex; align-items: center; background: #111418; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: visible;">
+          <button id="toggleMicBtn" class="discordAudioBtn" type="button" title="Desativar Microfone" style="background: none; border: none; color: #949BA4; padding: 6px 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px 0 0 6px; transition: color 0.15s, background 0.15s;">
+            <svg id="micIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+              <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+          </button>
+          <button id="micMenuArrow" class="discordArrowBtn" type="button" title="Configurações de entrada" style="background: none; border: none; border-left: 1px solid rgba(255,255,255,0.08); color: #949BA4; padding: 6px 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 0 6px 6px 0; transition: color 0.15s, background 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+
+          <!-- MENU DROPDOWN DISPOSITIVOS DE ENTRADA -->
+          <div id="micDropdown" class="discordDropdownMenu hidden" style="position: absolute; bottom: 44px; left: 0; width: 230px; background: #111418; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.8); z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+            <div style="font-size: 11px; font-weight: 700; color: #949BA4; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 8px 6px;">Dispositivo de entrada</div>
+            <div id="micDeviceList" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px;"></div>
+            <div style="height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0;"></div>
+            <div style="padding: 4px 8px;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; color: #949BA4; margin-bottom: 4px;"><span>Volume do microfone</span><span id="micVolVal">100%</span></div>
+              <input type="range" id="micVolumeSlider" min="0" max="100" value="100" style="width: 100%; accent-color: #00FFFF; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+
+        <!-- FONE / ÁUDIO COM BOTÃO E SETINHA -->
+        <div class="discordAudioBtnWrap" id="deafWrap" style="position: relative; display: flex; align-items: center; background: #111418; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: visible;">
+          <button id="toggleDeafBtn" class="discordAudioBtn" type="button" title="Desativar Áudio da Chamada/Transmissão" style="background: none; border: none; color: #949BA4; padding: 6px 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px 0 0 6px; transition: color 0.15s, background 0.15s;">
+            <svg id="deafIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1a7 7 0 0 1 14 0v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/>
+            </svg>
+          </button>
+          <button id="deafMenuArrow" class="discordArrowBtn" type="button" title="Configurações de saída" style="background: none; border: none; border-left: 1px solid rgba(255,255,255,0.08); color: #949BA4; padding: 6px 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 0 6px 6px 0; transition: color 0.15s, background 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+
+          <!-- MENU DROPDOWN DISPOSITIVOS DE SAÍDA -->
+          <div id="deafDropdown" class="discordDropdownMenu hidden" style="position: absolute; bottom: 44px; left: 0; width: 230px; background: #111418; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.8); z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+            <div style="font-size: 11px; font-weight: 700; color: #949BA4; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 8px 6px;">Dispositivo de saída</div>
+            <div id="speakerDeviceList" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px;"></div>
+            <div style="height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0;"></div>
+            <div style="padding: 4px 8px;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; color: #949BA4; margin-bottom: 4px;"><span>Volume de reprodução</span><span id="speakerVolVal">100%</span></div>
+              <input type="range" id="speakerVolumeSlider" min="0" max="100" value="100" style="width: 100%; accent-color: #00FFFF; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </div>
+
       <button id="shareScreen2" class="ctrl ctrlPrimary ctrlCompact" type="button" title="Compartilhar tela">
         <svg class="ctrlIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
         <span class="ctrlLabel">Compartilhar</span>
@@ -252,6 +303,7 @@
 <script charset="utf-8" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4"></script>
 <script charset="utf-8" src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script charset="utf-8" src="config.js?v=3"></script>
+<script charset="utf-8" src="audio-manager.js?v=1"></script>
 <script charset="utf-8" src="app.js?v=18"></script>
 </body>
 </html>

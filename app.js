@@ -816,11 +816,29 @@ function hasTrack(pc, track) {
   return pc.getSenders().some(s => s.track && s.track.id === track.id);
 }
 async function ensureLocalTracks(pc) {
-  if (!S.stream) return false;
   let added = false;
-  for (const track of S.stream.getTracks()) {
-    if (!hasTrack(pc, track)) {
-      try { pc.addTrack(track, S.stream); added = true; console.log('[Rise] track adicionada ao peer', track.kind); } catch (e) { console.warn('ensureLocalTracks addTrack falhou', e); }
+  if (S.stream) {
+    for (const track of S.stream.getTracks()) {
+      if (!hasTrack(pc, track)) {
+        try { pc.addTrack(track, S.stream);
+        try {
+          const sender = pc.getSenders().find(s => s.track === track);
+          if (sender) {
+            const params = sender.getParameters();
+            if (!params.encodings) params.encodings = [{}];
+            params.encodings[0].maxBitrate = 4500000;
+            params.degradationPreference = 'maintain-framerate';
+            sender.setParameters(params);
+          }
+        } catch {} added = true; console.log('[Rise] track adicionada ao peer', track.kind); } catch (e) { console.warn('ensureLocalTracks addTrack falhou', e); }
+      }
+    }
+  }
+  if (window.ANG_Audio && window.ANG_Audio.micStream) {
+    for (const track of window.ANG_Audio.micStream.getAudioTracks()) {
+      if (!hasTrack(pc, track)) {
+        try { pc.addTrack(track, window.ANG_Audio.micStream); added = true; console.log('[Rise] mic audio track adicionada ao peer'); } catch (e) { console.warn('ensureLocalTracks mic falhou', e); }
+      }
     }
   }
   return added;
@@ -1254,9 +1272,21 @@ function showLocal() { updateStageView(S.uid); }
 function showStream(uid) { updateStageView(uid); }
 async function playMainVideo(main) {
   const unmuteBtn = $('#unmuteVideo');
-  main.muted = false;
+  main.muted = window.ANG_Audio ? window.ANG_Audio.isDeafened : false;
   main.playsInline = true;
   main.autoplay = true;
+  if ('latencyHint' in main) main.latencyHint = 0;
+  if (main.srcObject) {
+    try {
+      const pcList = Array.from(S.peers.values());
+      for (const pc of pcList) {
+        for (const receiver of pc.getReceivers()) {
+          if ('playoutDelayHint' in receiver) receiver.playoutDelayHint = 0;
+          if ('jitterBufferTarget' in receiver) receiver.jitterBufferTarget = 0;
+        }
+      }
+    } catch {}
+  }
   if (unmuteBtn) unmuteBtn.classList.add('hidden');
   try {
     await main.play();
